@@ -104,9 +104,11 @@ def get_alerts(limit=1000, severity=None, status=None, db_url=None):
     
     where_clauses = []
     if severity:
-        where_clauses.append(f"severity IN ({', '.join([f\"'{s}'\" for s in severity])})")
+        severity_list = ', '.join(["'" + s + "'" for s in severity])
+        where_clauses.append(f"severity IN ({severity_list})")
     if status:
-        where_clauses.append(f"status IN ({', '.join([f\"'{s}'\" for s in status])})")
+        status_list = ', '.join(["'" + s + "'" for s in status])
+        where_clauses.append(f"status IN ({status_list})")
     
     where_str = "WHERE " + " AND ".join(where_clauses) if where_clauses else ""
     
@@ -126,9 +128,11 @@ def get_cases(limit=500, priority=None, status=None, db_url=None):
     
     where_clauses = []
     if priority:
-        where_clauses.append(f"priority IN ({', '.join([f\"'{p}'\" for p in priority])})")
+        priority_list = ', '.join(["'" + p + "'" for p in priority])
+        where_clauses.append(f"priority IN ({priority_list})")
     if status:
-        where_clauses.append(f"status IN ({', '.join([f\"'{s}'\" for s in status])})")
+        status_list = ', '.join(["'" + s + "'" for s in status])
+        where_clauses.append(f"status IN ({status_list})")
     
     where_str = "WHERE " + " AND ".join(where_clauses) if where_clauses else ""
     
